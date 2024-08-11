@@ -6,13 +6,13 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/WebHelpers2-{{ version }}.tar.gz
   sha256: 22b20d26778c64e899ad61a8f385266dd53e0d43e707f0cd375f1de77a0d622f
 
 build:
   noarch: python
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
-  script: "{{ PYTHON }} -m pip install . -vv"
 
 requirements:
   host:
@@ -26,10 +26,12 @@ requirements:
 test:
   requires:
     - pytest
+  source_files:
+    - tests
   imports:
     - {{ name }}
   commands:
-    - pytest --pyargs {{ name }}
+    - pytest tests
 
 about:
   home: https://webhelpers2.readthedocs.io/en/latest

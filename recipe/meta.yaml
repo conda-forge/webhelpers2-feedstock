@@ -6,26 +6,27 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/WebHelpers2-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/WebHelpers2-{{ version }}.tar.gz
   sha256: 22b20d26778c64e899ad61a8f385266dd53e0d43e707f0cd375f1de77a0d622f
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.9
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.9
+    - python >={{ python_min }}
     - markupsafe >=0.9.2
     - six >=1.4.0
 
 test:
   requires:
     - pytest
+    - python {{ python_min }}
   source_files:
     - tests
   imports:
